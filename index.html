@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta  http-equiv="Content-Type"  content="text/htrnl" charset="utf-8"/>
+    <title>Кредитный калькулятор</title>
+    <script  src="jquery.js"></script>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="jquery-ui.css"/>
+    <script  src="jquery-ui.min.js"></script>
+    <style>
+        input[type=range] {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 250px;
+            height: 10px;
+            padding: 0;
+            margin: 0;
+            box-shadow: inset 0 0 0 2px #2D7CFA;
+            background: #FDE293;
+            overflow: hidden;
+        }
+    </style>
+    <script> 
+        $(function(){
+            //$("#submit").button()
+            $("#tabs").tabs();
+            $.datepicker.setDefaults($.extend($.datepicker. 
+            regional['ru'])); 
+            $("#date") .datepicker(); 
+        });
+    </script>
+</head>
+<body>
+   <div id="tabs"> 
+        <ul> 
+            <li><a href="#tabs-1">Кредитный калькулятор</a></li>
+            <li><a href="#tabs-2">Депозитный калькулятор</a></li>
+        </ul> 
+        <div id="tabs-1">
+            <form action="CreditCalc.php" method="post" onSubmit="return validate(this)">
+        <table width="100%" border="0" align="center" cellpadding="0" cellspacing="0">
+          <tr>     
+            <td width="693" align="center" valign="top" bgcolor="#b0e0e6"> 
+              <table width="450" border="0" cellpadding="5" cellspacing="0" class="style3">
+                <tr>
+                  <td colspan="2"><table width="100%" border="0" cellspacing="0" cellpadding="0">
+                    <tr>
+                      <td width="93%"><div align="center"><strong>Параметры кредита </strong></div>
+                          <div align="left" class="style2" id="error1">Настройки калькулятора позволяют задавать дополнительные параметры кредита, но нужно учитывать, что в каждом банке есть свои особенности расчетов </div></td>
+                        </tr>
+                    </table></td>
+                  </tr>
+                <tr>
+                  <td colspan="2" align="left"><hr size="1"   style="color:#FDE293" /></td>
+                  </tr>
+                <tr>
+                  <td width="233" align="left"><strong>Сумма кредита:</strong></td>
+                  <td align="left"><label>
+                          <input name="summa" type="text" id="summa1" style="background:#FDE293 ; color:#000000 ;font-size:14px" value="300000" size="20" maxlength="20"  />
+                          </label>
+                          <label>
+                            <select name="valuta" id="valuta" style="background:#FDE293; color:#000000 ;font-size:14px">
+                              <option value="1">руб.</option>
+                              <option value="2">$</option>
+                              <option value="3">&#8364;</option>
+                          </select>
+                        </label>
+                        <label><input align="left" type="range" id="r1" min="1000" max="1000000" step="500" oninput="polzunok()"></label> 
+                    </td>
+                  </tr>
+                <tr>
+                  <td align="left"><strong>Срок кредита:</strong></td>
+                  <td align="left"><label>
+                    <input name="period" type="text" id="period" style="background:#FDE293; color:#000000 ;font-size:14px" value="24" size="20" maxlength="20"/>
+                    </label>
+                    <label>
+                    <select name="permesgod" id="permesgod" style="background:#FDE293; color:#000000 ;font-size:14px">
+                        <option value="1">мес.</option>
+                        <option value="12">лет</option>
+                    </select>
+                    </label></td>
+                  </tr>
+                <tr>
+                  <td align="left"><strong>Процентная ставка:</strong></td>
+                        <td align="left"><label>
+                          <input name="stavka" type="text" id="stavka" style="background:#FDE293; color:#000000 ;font-size:14px" value="18" size="20" maxlength="20"/>
+                          </label>
+                          <label>
+                            <select name="stavmesgod" id="stavmesgod" style="background:#FDE293; color:#000000 ;font-size:14px">
+                              <option value="12">%в год</option>
+                              <option value="1">%в мес</option>
+                          </select>
+                    </label></td>
+                  </tr>
+                <tr>
+                  <td colspan="2"><div style="height:1px"></div></td>
+                  </tr>
+                <tr>
+                  <td align="left"><span title="Если платеж каждый месяц одинаковый, выберите - аннуитетный, если уменьшающийся то выберите - дифференцированный"><strong>Вид платежа:<sup>?</sup></strong></span></td>
+                        <td align="left"><label>
+                          <select name="platezh_vid" id="platezh_vid" style="background:#FDE293; color:#000000 ;font-size:14px">
+                            <option value="1"> аннуитетный </option>
+                            <option value="2">дифференцированный</option>
+                        </select>
+                    </label></td>
+                  </tr>
+                <tr>
+                  <td align="left"><strong>Начало выплат:</strong></td>
+                        <td align="left"><label>
+                          <select name="messtart" id="messtart" style="background:#FDE293; color:#000000 ;font-size:14px">
+                            <option  value="1"  >Январь</option>
+                            <option  value="2"  >Февраль</option>
+                            <option  value="3" selected="selected" >Март</option>
+                            <option  value="4"  >Апрель</option>
+                            <option  value="5"  >Май</option>
+                            <option  value="6"  >Июнь</option>
+                            <option  value="7"  >Июль</option>
+                            <option  value="8"  >Август</option>
+                            <option  value="9"  >Сентябрь</option>
+                            <option  value="10"  >Октябрь</option>
+                            <option  value="11"  >Ноябрь</option>
+                            <option  value="12"  >Декабрь</option>
+                        </select>
+                          </label>
+                          <label>
+                            <select name="godstart" id="godstart" style="background:#FDE293; color:#000000 ;font-size:14px">
+                              <option  value="2006"  >2006</option>
+                              <option  value="2007"  >2007</option>
+                              <option  value="2008"  >2008</option>
+                              <option  value="2009"  >2009</option>
+                              <option  value="2010"  >2010</option>
+                              <option  value="2011"  >2011</option>
+                              <option  value="2012"  >2012</option>
+                              <option  value="2013"  >2013</option>
+                              <option  value="2014"  >2014</option>
+                              <option  value="2015"  >2015</option>
+                              <option  value="2016"  >2016</option>
+                              <option  value="2017"  >2017</option>
+                              <option  value="2018" selected="selected" >2018</option>
+                              <option  value="2019"  >2019</option>
+                              <option  value="2020"  >2020</option>
+                              <option  value="2021"  >2021</option>
+                              <option  value="2022"  >2022</option>
+                              <option  value="2023"  >2023</option>
+                              <option  value="2024"  >2024</option>
+                              <option  value="2025"  >2025</option>
+                          </select>
+                    </label></td>
+                  </tr>
+                <tr>
+                  <td><div style=" width:200"></div></td>
+                        <td><div style=" width:330"></div></td>
+                  </tr>
+                <tr>
+                  <td align="left">&nbsp;</td>
+                        <td align="left"><label>
+                          <input type="submit" name="Submit" value="         Рассчитать        " id="submit" style="height:30px; font-weight: bold;"/>
+                    </label></td>
+                  </tr>
+              </table>         
+            </td>
+            </tr>
+        </table>
+    </form>
+        </div> 
+        <div id="tabs-2">
+            <form action="DepozitCalc.php" method="post" onSubmit="return validate(this)">
+        <table width="100%" border="0" align="center" cellpadding="0" cellspacing="0">
+          <tr>     
+            <td width="693" align="center" valign="top" bgcolor="#b0e0e6"> 
+              <table width="450" border="0" cellpadding="5" cellspacing="0" class="style3">
+                <tr>
+                  <td colspan="2"><table width="100%" border="0" cellspacing="0" cellpadding="0">
+                    <tr>
+                      <td width="93%"><div align="center"><strong>Параметры кредита </strong></div>
+                          <div align="left" class="style2" id="error2">Настройки калькулятора позволяют задавать дополнительные параметры кредита, но нужно учитывать, что в каждом банке есть свои особенности расчетов </div></td>
+                        </tr>
+                    </table></td>
+                  </tr>
+                <tr>
+                  <td colspan="2" align="left"><hr size="1"   style="color:#FDE293" /></td>
+                  </tr>
+                <tr>
+                  <td width="233" align="left"><strong>Сумма вклада:</strong></td>
+                  <td align="left"><label>
+                          <input name="summa" type="text" id="summa2" style="background:#FDE293 ; color:#000000 ;font-size:14px" value="300000" size="20" maxlength="20"  />
+                          </label>
+                          <label>
+                            <select name="valuta" id="valuta" style="background:#FDE293; color:#000000 ;font-size:14px">
+                              <option value="1">руб.</option>
+                              <option value="2">$</option>
+                              <option value="3">&#8364;</option>
+                          </select>
+                        </label>
+                        <label><input align="left" type="range" id="r2" min="1000" max="1000000" step="500" oninput="polzunok()"></label> 
+                    </td>
+                  </tr>
+                <tr>
+                  <td align="left"><strong>Срок вклада:</strong></td>
+                  <td align="left"><label>
+                    <input name="period" type="text" id="period" style="background:#FDE293; color:#000000 ;font-size:14px" value="24" size="20" maxlength="20"/>
+                    </label>
+                    <label>
+                    <select name="permesgod" id="permesgod" style="background:#FDE293; color:#000000 ;font-size:14px">
+                        <option value="1">мес.</option>
+                        <option value="12">лет</option>
+                    </select>
+                    </label></td>
+                  </tr>
+                <tr>
+                  <td align="left"><strong>Процентная ставка:</strong></td>
+                        <td align="left"><label>
+                          <input name="stavka" type="text" id="stavka" style="background:#FDE293; color:#000000 ;font-size:14px" value="18" size="20" maxlength="20"/>
+                          </label>
+                          <label>
+                            <select name="stavmesgod" id="stavmesgod" style="background:#FDE293; color:#000000 ;font-size:14px">
+                              <option value="12">%в год</option>
+                              <option value="1">%в мес</option>
+                          </select>
+                    </label></td>
+                  </tr>
+                <tr>
+                  <td colspan="2"><div style="height:1px"></div></td>
+                  </tr>
+                <tr>
+                  <td align="left"><strong>Начало выплат:</strong></td>
+                        <td align="left"><label>
+                          <select name="messtart" id="messtart" style="background:#FDE293; color:#000000 ;font-size:14px">
+                            <option  value="1"  >Январь</option>
+                            <option  value="2"  >Февраль</option>
+                            <option  value="3" selected="selected" >Март</option>
+                            <option  value="4"  >Апрель</option>
+                            <option  value="5"  >Май</option>
+                            <option  value="6"  >Июнь</option>
+                            <option  value="7"  >Июль</option>
+                            <option  value="8"  >Август</option>
+                            <option  value="9"  >Сентябрь</option>
+                            <option  value="10"  >Октябрь</option>
+                            <option  value="11"  >Ноябрь</option>
+                            <option  value="12"  >Декабрь</option>
+                        </select>
+                          </label>
+                          <label>
+                            <select name="godstart" id="godstart" style="background:#FDE293; color:#000000 ;font-size:14px">
+                              <option  value="2006"  >2006</option>
+                              <option  value="2007"  >2007</option>
+                              <option  value="2008"  >2008</option>
+                              <option  value="2009"  >2009</option>
+                              <option  value="2010"  >2010</option>
+                              <option  value="2011"  >2011</option>
+                              <option  value="2012"  >2012</option>
+                              <option  value="2013"  >2013</option>
+                              <option  value="2014"  >2014</option>
+                              <option  value="2015"  >2015</option>
+                              <option  value="2016"  >2016</option>
+                              <option  value="2017"  >2017</option>
+                              <option  value="2018" selected="selected" >2018</option>
+                              <option  value="2019"  >2019</option>
+                              <option  value="2020"  >2020</option>
+                              <option  value="2021"  >2021</option>
+                              <option  value="2022"  >2022</option>
+                              <option  value="2023"  >2023</option>
+                              <option  value="2024"  >2024</option>
+                              <option  value="2025"  >2025</option>
+                          </select>
+                    </label></td>
+                  </tr>
+                <tr>
+                  <td><div style=" width:200"></div></td>
+                        <td><div style=" width:330"></div></td>
+                  </tr>
+                <tr>
+                  <td align="left">&nbsp;</td>
+                        <td align="left"><label>
+                          <input type="submit" name="Submit" value="         Рассчитать        " id="submit" style="height:30px; font-weight: bold;"/>
+                    </label></td>
+                  </tr>
+              </table>         
+            </td>
+            </tr>
+        </table>
+    </form>
+        </div>
+    </div>
+    <script>
+        function validate(form) {
+          fail  = validateCalc(form.summa.value);
+          fail  += validateCalc(form.period.value);
+          fail  += validateCalc(form.stavka.value);
+          if (fail == "") 
+          {
+              return true;
+          }
+          else {
+              var errorText = "Все поля долны быть заполнены и должны иметь значения строго больше 0\n";
+              var error1 = document.getElementById('error1');
+              var error2 = document.getElementById('error2');
+              error1.innerHTML = errorText;
+              error2.innerHTML = errorText;
+              return false; 
+          }
+        }
+        function validateCalc(field){
+            return (field == "" || field <= 0) ? "error" : "";
+        }
+        function polzunok() {
+            var rng1=document.getElementById('r1'); //rng1 - это ползунок
+            var rng2=document.getElementById('r2'); //rng2 - это ползунок
+            var i1=document.getElementById('summa1'); // i1 - input
+            i1.value=rng1.value;
+            var i2=document.getElementById('summa2'); // i2 - input
+            i2.value=rng2.value;
+        }
+    </script>
+</body>
+</html>
